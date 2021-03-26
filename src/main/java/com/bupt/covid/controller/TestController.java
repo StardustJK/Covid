@@ -14,9 +14,9 @@ public class TestController {
     @Autowired
     UserDao userDao;
     @GetMapping("/hello")
-    public String hello(){
+    public User hello(){
         User oneById = userDao.findAllById("1");
-        log.info(oneById.getName());
-        return oneById.getName();
+        //log.info(oneById.getName());
+        return oneById;
     }
 }
