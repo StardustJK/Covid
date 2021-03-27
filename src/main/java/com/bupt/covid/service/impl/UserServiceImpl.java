@@ -30,8 +30,9 @@ public class UserServiceImpl implements IUserService {
         if (userFromDB == null) {
             userFromDB=userDao.findOneByName(phone);
         }
+        //用户不存在
         if(userFromDB==null){
-            return ResponseResult.FAILED("账号或者密码错误");
+            return ResponseResult.FAILED("用户不存在");
         }
 
         //用户存在，判断密码是否正确
@@ -41,7 +42,13 @@ public class UserServiceImpl implements IUserService {
         }
 
         //密码正确
-        return ResponseResult.SUCCESS("登录成功");
+        User returnedUser=new User();
+        returnedUser.setId(userFromDB.getId());
+        returnedUser.setPhone(userFromDB.getPhone());
+        returnedUser.setName(userFromDB.getName());
+        returnedUser.setStatus(userFromDB.getStatus());
+        returnedUser.setRole(userFromDB.getRole());
+        return ResponseResult.SUCCESS("登录成功").setData(returnedUser);
     }
 
     @Override
