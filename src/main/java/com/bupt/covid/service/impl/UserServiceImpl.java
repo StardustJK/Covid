@@ -28,27 +28,37 @@ public class UserServiceImpl implements IUserService {
         String password = user.getPassword();
         User userFromDB = userDao.findOneByPhone(phone);
         if (userFromDB == null) {
-            userFromDB=userDao.findOneByName(phone);
+            userFromDB = userDao.findOneByName(phone);
         }
         //用户不存在
-        if(userFromDB==null){
+        if (userFromDB == null) {
             return ResponseResult.FAILED("用户不存在");
         }
 
         //用户存在，判断密码是否正确
-        boolean matches=password.equals(userFromDB.getPassword());
-        if(!matches){
+        boolean matches = password.equals(userFromDB.getPassword());
+        if (!matches) {
             return ResponseResult.FAILED("账号或者密码错误");
         }
 
         //密码正确
-        User returnedUser=new User();
-        returnedUser.setId(userFromDB.getId());
-        returnedUser.setPhone(userFromDB.getPhone());
-        returnedUser.setName(userFromDB.getName());
-        returnedUser.setStatus(userFromDB.getStatus());
-        returnedUser.setRole(userFromDB.getRole());
-        return ResponseResult.SUCCESS("登录成功").setData(returnedUser);
+        return ResponseResult.SUCCESS("登录成功").setData(getUserNoPassWord(userFromDB));
+    }
+
+    /**
+     * 仅返回Id,phone,name,status,role信息
+     *
+     * @param user
+     * @return
+     */
+    public User getUserNoPassWord(User user) {
+        User returnedUser = new User();
+        returnedUser.setId(user.getId());
+        returnedUser.setPhone(user.getPhone());
+        returnedUser.setName(user.getName());
+        returnedUser.setStatus(user.getStatus());
+        returnedUser.setRole(user.getRole());
+        return returnedUser;
     }
 
     @Override
@@ -56,8 +66,21 @@ public class UserServiceImpl implements IUserService {
         return null;
     }
 
+
+    /**
+     * 仅返回Id,phone,name,status,role信息
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public ResponseResult getUserInfo(String userId) {
-        return null;
+
+        User userFromDb = userDao.findOneById(userId);
+        if (userFromDb == null) {
+            return ResponseResult.FAILED("用户不存在");
+        } else return ResponseResult.SUCCESS("成功获取").setData(getUserNoPassWord(userFromDb));
     }
+
+
 }

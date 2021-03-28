@@ -5,10 +5,7 @@ import com.bupt.covid.pojo.User;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -19,6 +16,12 @@ public class UserApi {
     @PostMapping("login")
     public ResponseResult logIn(@RequestBody User user){
         return userService.logIn(user);
+    }
+
+
+    @GetMapping("userInfo")
+    public ResponseResult getUserInfo(@RequestParam("userId") String userId){
+        return userService.getUserInfo(userId);
     }
 
 
