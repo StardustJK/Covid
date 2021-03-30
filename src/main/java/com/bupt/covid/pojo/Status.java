@@ -20,7 +20,7 @@ public class Status {
     private Date day;
 
     @Column(name = "status")
-    private String status;
+    private int status;
 
     public int getId() {
         return id;
@@ -46,11 +46,11 @@ public class Status {
         this.day = day;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

@@ -33,6 +33,17 @@ public class User {
     @Column(name = "role")
     private int role;
 
+    @Column(name = "auth")
+    private boolean auth;
+
+    public boolean getAuth() {
+        return auth;
+    }
+
+    public void setAuth(boolean auth) {
+        this.auth = auth;
+    }
+
     public String getId() {
         return id;
     }
