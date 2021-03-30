@@ -19,7 +19,7 @@ public class StatusServiceImpl implements IStatusService {
     @Override
     public ResponseResult getStatusByUser(String userId) {
         List<Status> statusesFromDb = statusDao.getStatusesByUserId(userId);
-        if (statusesFromDb == null || statusesFromDb.size() == 0) {
+        if (statusesFromDb == null) {
             return ResponseResult.FAILED("该用户无状态记录");
         } else return ResponseResult.SUCCESS("成功获取该用户记录").setData(statusesFromDb);
 

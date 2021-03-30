@@ -21,7 +21,7 @@ public class TrackServiceImpl implements ITrackService {
     @Override
     public ResponseResult getTracksByUser(String userId) {
         List<Track> tracksByUser = trackDao.getTracksByUser(userId);
-        if (tracksByUser != null && tracksByUser.size() > 0) {
+        if (tracksByUser != null) {
             return ResponseResult.SUCCESS("获取成功").setData(tracksByUser);
         }
         return ResponseResult.FAILED("该用户无轨迹记录");
