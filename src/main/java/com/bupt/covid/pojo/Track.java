@@ -30,6 +30,17 @@ public class Track {
     @Column(name = "district")
     private String district;
 
+    @Column(name = "city")
+    private String city;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getId() {
         return id;
     }
