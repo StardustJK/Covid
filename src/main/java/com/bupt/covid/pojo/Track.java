@@ -3,6 +3,7 @@ package com.bupt.covid.pojo;
 import javax.persistence.*;
 import java.util.Date;
 
+
 @Entity
 @Table(name = "tb_track")
 public class Track {
