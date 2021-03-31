@@ -19,4 +19,9 @@ public class TrackApi {
     public ResponseResult getTrackInfoByUser(@RequestParam("userId") String userId){
         return trackService.getTracksByUser(userId);
     }
+
+    @GetMapping("busTrack")
+    public ResponseResult getBusTrackInfoByUser(@RequestParam("userId") String userId){
+        return trackService.getBusTrackByUser(userId);
+    }
 }
