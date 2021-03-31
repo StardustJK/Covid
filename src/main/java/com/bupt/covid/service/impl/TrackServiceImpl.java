@@ -43,4 +43,11 @@ public class TrackServiceImpl implements ITrackService {
 
 
     }
+
+    @Override
+    public ResponseResult getUserIdHasTrack() {
+        List<String> userIds = trackDao.getUserIdHasTrack();
+
+        return ResponseResult.SUCCESS("获取成功").setData(userIds);
+    }
 }

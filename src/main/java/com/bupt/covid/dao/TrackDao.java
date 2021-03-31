@@ -12,4 +12,7 @@ public interface TrackDao extends JpaRepository<Track,String>, JpaSpecificationE
     @Query(nativeQuery = true, value = "select * from `tb_track` where `user_id`=? order by `date_time` ")
     List<Track> getTracksByUser(String userId);
 
+    @Query(nativeQuery = true, value = "select distinct user_id from `tb_track` ")
+    List<String> getUserIdHasTrack();
+
 }
