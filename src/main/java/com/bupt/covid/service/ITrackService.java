@@ -12,4 +12,7 @@ public interface ITrackService {
     ResponseResult getUserIdHasTrack();
 
     ResponseResult getTrackByDateAndCity(String low, String up, String city, String userId);
+
+    ResponseResult getTrackByDateAndDistrict(String low, String up, String district, String userId);
+
 }

@@ -69,4 +69,13 @@ public class TrackServiceImpl implements ITrackService {
         }
         return ResponseResult.SUCCESS("成功获取轨迹").setData(tracksByDateAndCity);
     }
+
+    @Override
+    public ResponseResult getTrackByDateAndDistrict(String low, String up, String district, String userId) {
+        List<Track> tracksByDateAndCity = trackDao.getTracksByDateAndDistrict(low,up,district,userId);
+        if(tracksByDateAndCity==null||tracksByDateAndCity.size()==0){
+            return ResponseResult.FAILED("没有符合条件的轨迹");
+        }
+        return ResponseResult.SUCCESS("成功获取轨迹").setData(tracksByDateAndCity);
+    }
 }

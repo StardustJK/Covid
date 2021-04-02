@@ -39,4 +39,12 @@ public class TrackApi {
                                                 @RequestParam("userId") String userId){
         return trackService.getTrackByDateAndCity(low,up,city,userId);
     }
+
+    @GetMapping("trackByDateAndDistrict")
+    public ResponseResult getTrackByDateAndDistrict(@RequestParam("low") String low,
+                                                @RequestParam("up") String up,
+                                                @RequestParam("district") String district,
+                                                @RequestParam("userId") String userId){
+        return trackService.getTrackByDateAndDistrict(low,up,district,userId);
+    }
 }

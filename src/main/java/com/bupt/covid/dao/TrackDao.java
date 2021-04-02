@@ -19,4 +19,7 @@ public interface TrackDao extends JpaRepository<Track,String>, JpaSpecificationE
 
     @Query(nativeQuery = true, value = "select * from `tb_track` where  `date_time` between ?1 and ?2 and `city`=?3 and `user_id`=?4")
     List<Track> getTracksByDateAndCity(String low, String  up,String city,String userId);
+
+    @Query(nativeQuery = true, value = "select * from `tb_track` where  `date_time` between ?1 and ?2 and `district`=?3 and `user_id`=?4")
+    List<Track> getTracksByDateAndDistrict(String low, String up, String district, String userId);
 }
