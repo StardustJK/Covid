@@ -78,4 +78,15 @@ public class TrackServiceImpl implements ITrackService {
         }
         return ResponseResult.SUCCESS("成功获取轨迹").setData(tracksByDateAndCity);
     }
+
+    @Override
+    public ResponseResult addTrack(Track track) {
+        int result = trackDao.addTrack(track.getUserId(), track.getDateTime(), track.getLongitude(),
+                track.getLatitude(), track.getDescription(), track.getLocation(), track.getDistrict(), track.getCity());
+        if(result!=0){
+            return ResponseResult.SUCCESS("轨迹上传成功");
+        }
+        return ResponseResult.FAILED("轨迹上传失败");
+
+    }
 }

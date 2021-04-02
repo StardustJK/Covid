@@ -1,5 +1,7 @@
 package com.bupt.covid.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,11 +10,12 @@ import java.util.Date;
 @Table(name = "tb_track")
 public class Track {
     @Id
-    private String id;
+    private int id;
 
     @Column(name = "user_id")
     private String userId;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "date_time")
     private Date dateTime;
 
@@ -42,11 +45,11 @@ public class Track {
         this.city = city;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,12 +1,11 @@
 package com.bupt.covid.controller;
 
+import com.bupt.covid.pojo.Track;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.ITrackService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -47,4 +46,10 @@ public class TrackApi {
                                                 @RequestParam("userId") String userId){
         return trackService.getTrackByDateAndDistrict(low,up,district,userId);
     }
+
+    @PostMapping("addTrack")
+    public ResponseResult addTrack(@RequestBody Track track){
+        return trackService.addTrack(track);
+    }
 }
+

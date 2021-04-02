@@ -4,6 +4,7 @@ import com.bupt.covid.pojo.BusTrack;
 import com.bupt.covid.pojo.Track;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -22,4 +23,16 @@ public interface TrackDao extends JpaRepository<Track,String>, JpaSpecificationE
 
     @Query(nativeQuery = true, value = "select * from `tb_track` where  `date_time` between ?1 and ?2 and `district`=?3 and `user_id`=?4")
     List<Track> getTracksByDateAndDistrict(String low, String up, String district, String userId);
+
+    @Modifying
+    @Query(nativeQuery = true,value = "insert into `tb_track` (user_id, date_time, longitude, latitude, description, location, district, city)" +
+            " values (?1,?2,?3,?4,?5,?6,?7,?8)")
+    int addTrack(String userId,
+                  Date dateTime,
+                  double longitude,
+                  double latitude,
+                  String description,
+                  String location,
+                  String district,
+                  String city);
 }
