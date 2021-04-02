@@ -5,7 +5,9 @@ import com.bupt.covid.pojo.Track;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TrackDao extends JpaRepository<Track,String>, JpaSpecificationExecutor<Track> {
@@ -15,4 +17,6 @@ public interface TrackDao extends JpaRepository<Track,String>, JpaSpecificationE
     @Query(nativeQuery = true, value = "select distinct user_id from `tb_track` ")
     List<String> getUserIdHasTrack();
 
+    @Query(nativeQuery = true, value = "select * from `tb_track` where  `date_time` between ?1 and ?2 and `city`=?3 and `user_id`=?4")
+    List<Track> getTracksByDateAndCity(String low, String  up,String city,String userId);
 }

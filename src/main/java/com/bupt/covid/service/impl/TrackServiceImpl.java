@@ -8,9 +8,19 @@ import com.bupt.covid.pojo.Track;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.ITrackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,5 +59,14 @@ public class TrackServiceImpl implements ITrackService {
         List<String> userIds = trackDao.getUserIdHasTrack();
 
         return ResponseResult.SUCCESS("获取成功").setData(userIds);
+    }
+
+    @Override
+    public ResponseResult getTrackByDateAndCity(String low, String up, String city, String userId) {
+        List<Track> tracksByDateAndCity = trackDao.getTracksByDateAndCity(low,up,city,userId);
+        if(tracksByDateAndCity==null||tracksByDateAndCity.size()==0){
+            return ResponseResult.FAILED("没有符合条件的轨迹");
+        }
+        return ResponseResult.SUCCESS("成功获取轨迹").setData(tracksByDateAndCity);
     }
 }
