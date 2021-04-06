@@ -35,4 +35,6 @@ public interface TrackDao extends JpaRepository<Track,String>, JpaSpecificationE
                   String location,
                   String district,
                   String city);
+
+    void deleteAllByUserId(String userId);
 }

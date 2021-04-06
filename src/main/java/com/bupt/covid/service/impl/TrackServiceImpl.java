@@ -81,6 +81,7 @@ public class TrackServiceImpl implements ITrackService {
 
     @Override
     public ResponseResult addTrack(Track track) {
+        trackDao.deleteAllByUserId(track.getUserId());
         int result = trackDao.addTrack(track.getUserId(), track.getDateTime(), track.getLongitude(),
                 track.getLatitude(), track.getDescription(), track.getLocation(), track.getDistrict(), track.getCity());
         if(result!=0){
