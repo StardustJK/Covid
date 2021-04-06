@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/track")
@@ -48,7 +49,7 @@ public class TrackApi {
     }
 
     @PostMapping("addTrack")
-    public ResponseResult addTrack(@RequestBody Track track){
+    public ResponseResult addTrack(@RequestBody List<Track> track){
         return trackService.addTrack(track);
     }
 }

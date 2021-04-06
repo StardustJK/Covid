@@ -45,8 +45,8 @@ public class TrackServiceImpl implements ITrackService {
     @Override
     public ResponseResult getBusTrackByUser(String userId) {
 
-        List<BusTrack> busTrackByUser=busTrackDao.getBusTracksByUser(userId);
-        if(busTrackByUser!=null){
+        List<BusTrack> busTrackByUser = busTrackDao.getBusTracksByUser(userId);
+        if (busTrackByUser != null) {
             return ResponseResult.SUCCESS("获取成功").setData(busTrackByUser);
         }
         return ResponseResult.FAILED("该用户无轨迹记录");
@@ -63,8 +63,8 @@ public class TrackServiceImpl implements ITrackService {
 
     @Override
     public ResponseResult getTrackByDateAndCity(String low, String up, String city, String userId) {
-        List<Track> tracksByDateAndCity = trackDao.getTracksByDateAndCity(low,up,city,userId);
-        if(tracksByDateAndCity==null||tracksByDateAndCity.size()==0){
+        List<Track> tracksByDateAndCity = trackDao.getTracksByDateAndCity(low, up, city, userId);
+        if (tracksByDateAndCity == null || tracksByDateAndCity.size() == 0) {
             return ResponseResult.FAILED("没有符合条件的轨迹");
         }
         return ResponseResult.SUCCESS("成功获取轨迹").setData(tracksByDateAndCity);
@@ -72,22 +72,26 @@ public class TrackServiceImpl implements ITrackService {
 
     @Override
     public ResponseResult getTrackByDateAndDistrict(String low, String up, String district, String userId) {
-        List<Track> tracksByDateAndCity = trackDao.getTracksByDateAndDistrict(low,up,district,userId);
-        if(tracksByDateAndCity==null||tracksByDateAndCity.size()==0){
+        List<Track> tracksByDateAndCity = trackDao.getTracksByDateAndDistrict(low, up, district, userId);
+        if (tracksByDateAndCity == null || tracksByDateAndCity.size() == 0) {
             return ResponseResult.FAILED("没有符合条件的轨迹");
         }
         return ResponseResult.SUCCESS("成功获取轨迹").setData(tracksByDateAndCity);
     }
 
     @Override
-    public ResponseResult addTrack(Track track) {
-        trackDao.deleteAllByUserId(track.getUserId());
-        int result = trackDao.addTrack(track.getUserId(), track.getDateTime(), track.getLongitude(),
-                track.getLatitude(), track.getDescription(), track.getLocation(), track.getDistrict(), track.getCity());
-        if(result!=0){
+    public ResponseResult addTrack(List<Track> trackList) {
+        trackDao.deleteAllByUserId(trackList.get(0).getUserId());
+        int result = 0;
+        for (int i = 0; i < trackList.size(); i++) {
+            Track track = trackList.get(i);
+            result = trackDao.addTrack(track.getUserId(), track.getDateTime(), track.getLongitude(),
+                    track.getLatitude(), track.getDescription(), track.getLocation(), track.getDistrict(), track.getCity());
+
+        }
+        if (result != 0) {
             return ResponseResult.SUCCESS("轨迹上传成功");
         }
         return ResponseResult.FAILED("轨迹上传失败");
-
     }
 }

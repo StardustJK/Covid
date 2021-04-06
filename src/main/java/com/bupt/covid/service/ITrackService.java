@@ -4,6 +4,7 @@ import com.bupt.covid.pojo.Track;
 import com.bupt.covid.response.ResponseResult;
 
 import java.util.Date;
+import java.util.List;
 
 public interface ITrackService {
     ResponseResult getTracksByUser(String userId);
@@ -16,5 +17,5 @@ public interface ITrackService {
 
     ResponseResult getTrackByDateAndDistrict(String low, String up, String district, String userId);
 
-    ResponseResult addTrack(Track track);
+    ResponseResult addTrack(List<Track> track);
 }
