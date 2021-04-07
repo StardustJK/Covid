@@ -1,5 +1,6 @@
 package com.bupt.covid.controller;
 
+import com.bupt.covid.pojo.BusTrack;
 import com.bupt.covid.pojo.Track;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.ITrackService;
@@ -51,6 +52,11 @@ public class TrackApi {
     @PostMapping("addTrack")
     public ResponseResult addTrack(@RequestBody List<Track> track){
         return trackService.addTrack(track);
+    }
+
+    @PostMapping("addBusTrack")
+    public ResponseResult addBusTrack(@RequestBody List<BusTrack> busTracks){
+        return trackService.addBusTrack(busTracks);
     }
 }
 

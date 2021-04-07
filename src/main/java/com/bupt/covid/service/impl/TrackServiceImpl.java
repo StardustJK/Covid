@@ -81,6 +81,9 @@ public class TrackServiceImpl implements ITrackService {
 
     @Override
     public ResponseResult addTrack(List<Track> trackList) {
+        if(trackList.size()==0){
+            return ResponseResult.FAILED("轨迹为空");
+        }
         trackDao.deleteAllByUserId(trackList.get(0).getUserId());
         int result = 0;
         for (int i = 0; i < trackList.size(); i++) {
@@ -93,5 +96,24 @@ public class TrackServiceImpl implements ITrackService {
             return ResponseResult.SUCCESS("轨迹上传成功");
         }
         return ResponseResult.FAILED("轨迹上传失败");
+    }
+
+    @Override
+    public ResponseResult addBusTrack(List<BusTrack> busTracks) {
+        if(busTracks.size()==0){
+            return ResponseResult.FAILED("轨迹为空");
+        }
+        busTrackDao.deleteAllByUserId(busTracks.get(0).getUserId());
+        int result = 0;
+        for (int i = 0; i < busTracks.size(); i++) {
+            BusTrack busTrack = busTracks.get(i);
+            result = busTrackDao.addBusTrack(busTrack.getId(), busTrack.getUserId(), busTrack.getName(), busTrack.getStart(),
+                    busTrack.getEnd(), busTrack.getDateTime());
+        }
+        if (result != 0) {
+            return ResponseResult.SUCCESS("轨迹上传成功");
+        }
+        return ResponseResult.FAILED("轨迹上传失败");
+
     }
 }

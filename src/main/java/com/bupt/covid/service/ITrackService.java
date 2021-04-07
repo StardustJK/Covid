@@ -1,5 +1,6 @@
 package com.bupt.covid.service;
 
+import com.bupt.covid.pojo.BusTrack;
 import com.bupt.covid.pojo.Track;
 import com.bupt.covid.response.ResponseResult;
 
@@ -18,4 +19,6 @@ public interface ITrackService {
     ResponseResult getTrackByDateAndDistrict(String low, String up, String district, String userId);
 
     ResponseResult addTrack(List<Track> track);
+
+    ResponseResult addBusTrack(List<BusTrack> busTracks);
 }
