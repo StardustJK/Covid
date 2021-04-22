@@ -11,8 +11,11 @@ public interface IUserService {
     //登录
     ResponseResult logIn(User user);
 
-    User checkUser();
 
     ResponseResult getUserInfo(String userId);
+
+    ResponseResult register(User user, String verifyCode);
+
+    ResponseResult checkRegister(String email);
 
 }

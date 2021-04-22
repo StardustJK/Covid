@@ -33,5 +33,20 @@ public class UserApi {
         return statusService.getStatusByUser(userId);
     }
 
+    @PostMapping("register")
+    public ResponseResult register(@RequestBody User user,
+                                   @RequestParam("verify_code") String verifyCode){
+        return userService.register(user,verifyCode);
+    }
+
+    /**
+     * 检查邮箱是否被注册过；手机发短信不好测，先做成邮箱注册
+     */
+    @GetMapping("checkRegister")
+    public ResponseResult checkRegister(@RequestParam("phone")String email){
+        return userService.checkRegister(email);
+    }
+
+
 
 }
