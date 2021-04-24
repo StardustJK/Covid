@@ -158,7 +158,7 @@ public class UserServiceImpl implements IUserService {
         //1 防止暴力发送（不断发送）。同一个邮箱间隔要超过60s
         Object hasEmailSend=redisUtil.get(Constants.User.KEY_EMAIL_SEND_ADDRESS+email);
         if (hasEmailSend != null) {
-            return ResponseResult.FAILED("发送验证码过于频繁2");
+            return ResponseResult.FAILED("发送验证码过于频繁，请60秒后重试");
         }
         //2.发送验证码6位数100000-999999
         int code=random.nextInt(999999);
@@ -174,7 +174,7 @@ public class UserServiceImpl implements IUserService {
         //60s消失
         redisUtil.set(Constants.User.KEY_EMAIL_SEND_ADDRESS + email, "true", Constants.User.EMAIL_SEND_TIME_INTERVAL);
         //保存code,10分钟
-        redisUtil.set(Constants.User.KEY_EMAIL_CODE_CONTENT+email,code+"");
+        redisUtil.set(Constants.User.KEY_EMAIL_CODE_CONTENT+email,code+"",60*10);
 
         return ResponseResult.SUCCESS("验证码发送成功");
 
