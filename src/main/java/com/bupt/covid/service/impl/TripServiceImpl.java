@@ -37,7 +37,7 @@ public class TripServiceImpl implements ITripService {
                     Predicate areaPre=criteriaBuilder.or(start,end);
                     predicateList.add(areaPre);
                 }
-                if(type!=-1){
+                if(type!=0){
                     Predicate typePre=criteriaBuilder.equal(root.get("t_type").as(Integer.class),type);
                     predicateList.add(typePre);
                 }
