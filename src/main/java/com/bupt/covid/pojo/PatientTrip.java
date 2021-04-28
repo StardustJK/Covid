@@ -1,5 +1,7 @@
 package com.bupt.covid.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,10 +16,13 @@ import java.util.Date;
 public class PatientTrip {
     @Id
     private int id;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "date")
     private Date t_date;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "start")
     private Date t_start;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "end")
     private Date t_end;
     @Column(name = "type")
@@ -38,8 +43,10 @@ public class PatientTrip {
     private String who;
     @Column(name = "verified")
     private int verified;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at")
     private Date created_at;
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "updated_at")
     private Date updated_at;
 
