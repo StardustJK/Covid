@@ -122,12 +122,12 @@ public class UserServiceImpl implements IUserService {
         }
         //密码加密
         String password=user.getPassword();
-        user.setPassword(bCryptPasswordEncoder.encode(password));
+        String passwordEncode=bCryptPasswordEncoder.encode(password);
+        user.setPassword(passwordEncode);
 
         //补全数据
-        String id=idWorker.nextId()+"";
-        user.setId(id);
-        user.setName("未认证用户"+id.substring(0,4));
+
+        user.setName("未认证用户"+passwordEncode.substring(0,4));
 
         //存数据
         userDao.save(user);
