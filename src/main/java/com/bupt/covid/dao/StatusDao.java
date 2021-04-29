@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface StatusDao extends JpaRepository<Status,Integer>, JpaSpecificationExecutor<Status> {
     @Query(nativeQuery = true, value = "select * from `tb_status` where `user_id`=? order by `day` ")
-    List<Status> getStatusesByUserId(String userId);
+    List<Status> getStatusesByUserId(int userId);
 }

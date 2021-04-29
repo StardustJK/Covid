@@ -14,7 +14,7 @@ public class Status {
     private int id;
 
     @Column(name = "user_id")
-    private String userId;
+    private int userId;
 
     @Column(name = "day")
     private Date day;
@@ -30,11 +30,11 @@ public class Status {
         this.id = id;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

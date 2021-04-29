@@ -14,7 +14,7 @@ public class BusTrack {
     private String id;
 
     @Column(name = "user_id")
-    private String userId;
+    private int userId;
 
 
     @Column(name = "name")
@@ -37,11 +37,11 @@ public class BusTrack {
         this.id = id;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

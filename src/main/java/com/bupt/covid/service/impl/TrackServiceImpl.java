@@ -25,7 +25,7 @@ public class TrackServiceImpl implements ITrackService {
     BusTrackDao busTrackDao;
 
     @Override
-    public ResponseResult getTracksByUser(String userId) {
+    public ResponseResult getTracksByUser(int userId) {
         List<Track> tracksByUser = trackDao.getTracksByUser(userId);
         if (tracksByUser != null) {
             return ResponseResult.SUCCESS("获取成功").setData(tracksByUser);
@@ -34,7 +34,7 @@ public class TrackServiceImpl implements ITrackService {
     }
 
     @Override
-    public ResponseResult getBusTrackByUser(String userId) {
+    public ResponseResult getBusTrackByUser(int userId) {
 
         List<BusTrack> busTrackByUser = busTrackDao.getBusTracksByUser(userId);
         if (busTrackByUser != null) {
@@ -53,7 +53,7 @@ public class TrackServiceImpl implements ITrackService {
     }
 
     @Override
-    public ResponseResult getTrackByDateAndCity(String low, String up, String city, String userId) {
+    public ResponseResult getTrackByDateAndCity(String low, String up, String city, int userId) {
         List<Track> tracksByDateAndCity = trackDao.getTracksByDateAndCity(low, up, city, userId);
         if (tracksByDateAndCity == null || tracksByDateAndCity.size() == 0) {
             return ResponseResult.FAILED("没有符合条件的轨迹");
@@ -62,7 +62,7 @@ public class TrackServiceImpl implements ITrackService {
     }
 
     @Override
-    public ResponseResult getTrackByDateAndDistrict(String low, String up, String district, String userId) {
+    public ResponseResult getTrackByDateAndDistrict(String low, String up, String district, int userId) {
         List<Track> tracksByDateAndCity = trackDao.getTracksByDateAndDistrict(low, up, district, userId);
         if (tracksByDateAndCity == null || tracksByDateAndCity.size() == 0) {
             return ResponseResult.FAILED("没有符合条件的轨迹");

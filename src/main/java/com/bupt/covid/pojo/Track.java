@@ -13,7 +13,7 @@ public class Track {
     private int id;
 
     @Column(name = "user_id")
-    private String userId;
+    private int userId;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "date_time")
@@ -53,11 +53,11 @@ public class Track {
         this.id = id;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

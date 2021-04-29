@@ -8,15 +8,15 @@ import java.util.Date;
 import java.util.List;
 
 public interface ITrackService {
-    ResponseResult getTracksByUser(String userId);
+    ResponseResult getTracksByUser(int userId);
 
-    ResponseResult getBusTrackByUser(String userId);
+    ResponseResult getBusTrackByUser(int userId);
 
     ResponseResult getUserIdHasTrack();
 
-    ResponseResult getTrackByDateAndCity(String low, String up, String city, String userId);
+    ResponseResult getTrackByDateAndCity(String low, String up, String city, int userId);
 
-    ResponseResult getTrackByDateAndDistrict(String low, String up, String district, String userId);
+    ResponseResult getTrackByDateAndDistrict(String low, String up, String district, int userId);
 
     ResponseResult addTrack(List<Track> track);
 

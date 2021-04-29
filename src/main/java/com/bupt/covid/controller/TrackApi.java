@@ -19,12 +19,12 @@ public class TrackApi {
     ITrackService trackService;
 
     @GetMapping("trackInfo")
-    public ResponseResult getTrackInfoByUser(@RequestParam("userId") String userId){
+    public ResponseResult getTrackInfoByUser(@RequestParam("userId") int userId){
         return trackService.getTracksByUser(userId);
     }
 
     @GetMapping("busTrack")
-    public ResponseResult getBusTrackInfoByUser(@RequestParam("userId") String userId){
+    public ResponseResult getBusTrackInfoByUser(@RequestParam("userId") int userId){
         return trackService.getBusTrackByUser(userId);
     }
 
@@ -37,7 +37,7 @@ public class TrackApi {
     public ResponseResult getTrackByDateAndCity(@RequestParam("low") String low,
                                                 @RequestParam("up") String up,
                                                 @RequestParam("city") String city,
-                                                @RequestParam("userId") String userId){
+                                                @RequestParam("userId") int userId){
         return trackService.getTrackByDateAndCity(low,up,city,userId);
     }
 
@@ -45,7 +45,7 @@ public class TrackApi {
     public ResponseResult getTrackByDateAndDistrict(@RequestParam("low") String low,
                                                 @RequestParam("up") String up,
                                                 @RequestParam("district") String district,
-                                                @RequestParam("userId") String userId){
+                                                @RequestParam("userId") int userId){
         return trackService.getTrackByDateAndDistrict(low,up,district,userId);
     }
 

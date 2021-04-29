@@ -97,7 +97,7 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     @Override
-    public ResponseResult getUserInfo(String userId) {
+    public ResponseResult getUserInfo(int userId) {
 
         User userFromDb = userDao.findOneById(userId);
         if (userFromDb == null) {

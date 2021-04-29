@@ -12,7 +12,7 @@ public interface IUserService {
     ResponseResult logIn(User user);
 
 
-    ResponseResult getUserInfo(String userId);
+    ResponseResult getUserInfo(int userId);
 
     ResponseResult register(User user, String verifyCode);
 

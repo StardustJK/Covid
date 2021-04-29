@@ -24,12 +24,12 @@ public class UserApi {
 
 
     @GetMapping("userInfo")
-    public ResponseResult getUserInfo(@RequestParam("userId") String userId){
+    public ResponseResult getUserInfo(@RequestParam("userId") int userId){
         return userService.getUserInfo(userId);
     }
 
     @GetMapping("status")
-    public ResponseResult getStatuses(@RequestParam("userId") String userId){
+    public ResponseResult getStatuses(@RequestParam("userId") int userId){
         return statusService.getStatusByUser(userId);
     }
 

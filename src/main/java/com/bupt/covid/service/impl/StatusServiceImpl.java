@@ -17,7 +17,7 @@ public class StatusServiceImpl implements IStatusService {
     StatusDao statusDao;
 
     @Override
-    public ResponseResult getStatusByUser(String userId) {
+    public ResponseResult getStatusByUser(int userId) {
         List<Status> statusesFromDb = statusDao.getStatusesByUserId(userId);
         if (statusesFromDb == null) {
             return ResponseResult.FAILED("该用户无状态记录");

@@ -15,7 +15,7 @@ public class TestController {
     UserDao userDao;
     @GetMapping("/hello")
     public User hello(){
-        User oneById = userDao.findAllById("1");
+        User oneById = userDao.findAllById(1);
         //log.info(oneById.getName());
         return oneById;
     }
