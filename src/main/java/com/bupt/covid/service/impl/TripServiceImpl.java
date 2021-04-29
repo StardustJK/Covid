@@ -32,8 +32,8 @@ public class TripServiceImpl implements ITripService {
             public Predicate toPredicate(Root<PatientTrip> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicateList=new ArrayList<>();
                 if(!TextUtils.isEmpty(area)){
-                    Predicate start= criteriaBuilder.like(root.get("t_start").as(String.class),"%"+area+"%");
-                    Predicate end= criteriaBuilder.like(root.get("t_end").as(String.class),"%"+area+"%");
+                    Predicate start= criteriaBuilder.like(root.get("t_pos_start").as(String.class),"%"+area+"%");
+                    Predicate end= criteriaBuilder.like(root.get("t_pos_end").as(String.class),"%"+area+"%");
                     Predicate areaPre=criteriaBuilder.or(start,end);
                     predicateList.add(areaPre);
                 }
