@@ -1,7 +1,9 @@
 package com.bupt.covid.service.impl;
 
 import com.bupt.covid.dao.PatientTripDao;
+import com.bupt.covid.dao.UserTripDao;
 import com.bupt.covid.pojo.PatientTrip;
+import com.bupt.covid.pojo.UserTrip;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.ITripService;
 import com.bupt.covid.utils.TextUtils;
@@ -24,6 +26,8 @@ import java.util.List;
 public class TripServiceImpl implements ITripService {
     @Autowired
     PatientTripDao patientTripDao;
+    @Autowired
+    UserTripDao userTripDao;
 
     @Override
     public ResponseResult searchTrip(String area, int type, String no, Date start, Date end) {
@@ -59,5 +63,28 @@ public class TripServiceImpl implements ITripService {
             return ResponseResult.FAILED("查询结果为空");
         }
         return ResponseResult.SUCCESS("查询成功").setData(all);
+    }
+
+    @Override
+    public ResponseResult addTrip(UserTrip userTrip) {
+        if(userTrip.getDate().equals("")){
+            return ResponseResult.FAILED("请填写日期");
+        }
+        if(userTrip.getNo().equals("")){
+            return ResponseResult.FAILED("请填写车次/航班");
+        }
+        userTripDao.save(userTrip);
+        return ResponseResult.SUCCESS("添加成功");
+
+
+    }
+
+    @Override
+    public ResponseResult getTripByUser(int userId) {
+        List<UserTrip> allByUserId = userTripDao.findAllByUserId(userId);
+        if(allByUserId.size()==0){
+            return ResponseResult.FAILED("无出行记录");
+        }
+        return ResponseResult.SUCCESS("获取成功").setData(allByUserId);
     }
 }

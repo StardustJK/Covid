@@ -1,12 +1,10 @@
 package com.bupt.covid.controller;
 
+import com.bupt.covid.pojo.UserTrip;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.ITripService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -34,5 +32,14 @@ public class TripApi {
         return tripService.searchTrip(area,type,no,start,end);
     }
 
+    @PostMapping("add")
+    ResponseResult addTrip(@RequestBody UserTrip userTrip){
+        return tripService.addTrip(userTrip);
+    }
+
+    @GetMapping("getByUser")
+    ResponseResult getTripByUser(@RequestParam("user_id")int userId){
+        return tripService.getTripByUser(userId);
+    }
 
 }
