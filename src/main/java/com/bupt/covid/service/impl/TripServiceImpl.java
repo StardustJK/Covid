@@ -81,7 +81,7 @@ public class TripServiceImpl implements ITripService {
 
     @Override
     public ResponseResult getTripByUser(int userId) {
-        List<UserTrip> allByUserId = userTripDao.findAllByUserId(userId);
+        List<UserTrip> allByUserId = userTripDao.findAllByUserIdOrderByDateDesc(userId);
         if(allByUserId.size()==0){
             return ResponseResult.FAILED("无出行记录");
         }
