@@ -5,6 +5,7 @@ import com.bupt.covid.pojo.UserTrip;
 import com.bupt.covid.response.ResponseResult;
 
 import java.util.Date;
+import java.util.List;
 
 public interface ITripService {
 
@@ -17,4 +18,6 @@ public interface ITripService {
     ResponseResult addTrip(UserTrip userTrip);
 
     ResponseResult getTripByUser(int userId);
+
+    ResponseResult tripRisk(List<UserTrip> userTrip);
 }

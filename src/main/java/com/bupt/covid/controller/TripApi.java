@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/trip")
@@ -42,4 +43,8 @@ public class TripApi {
         return tripService.getTripByUser(userId);
     }
 
+    @PostMapping("risk")
+    ResponseResult tripRisk(@RequestBody List<UserTrip> userTrip){
+        return tripService.tripRisk(userTrip);
+    }
 }

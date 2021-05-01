@@ -10,4 +10,5 @@ import java.util.List;
 public interface UserTripDao extends JpaRepository<UserTrip,Integer>, JpaSpecificationExecutor<UserTrip> {
 
     List<UserTrip> findAllByUserId(int userId);
+    UserTrip findOneById(int id);
 }

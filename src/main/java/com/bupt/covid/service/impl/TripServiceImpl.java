@@ -87,4 +87,51 @@ public class TripServiceImpl implements ITripService {
         }
         return ResponseResult.SUCCESS("获取成功").setData(allByUserId);
     }
+
+    @Override
+    public ResponseResult tripRisk(List<UserTrip> userTrips) {
+        List<PatientTrip> all=new ArrayList<>();
+        for(int i=0;i<userTrips.size();i++){
+            UserTrip userTrip=userTrips.get(i);
+            List<PatientTrip> patientTripList=patientTripDao.findAll(new Specification<PatientTrip>() {
+                @Override
+                public Predicate toPredicate(Root<PatientTrip> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    List<Predicate> predicateList=new ArrayList<>();
+                    if(!TextUtils.isEmpty(userTrip.getPos_start())){
+                        Predicate start= criteriaBuilder.like(root.get("t_pos_start").as(String.class),"%"+userTrip.getPos_start()+"%");
+                        predicateList.add(start);
+                    }
+                    if(!TextUtils.isEmpty(userTrip.getPos_end())){
+                        Predicate end= criteriaBuilder.like(root.get("t_pos_end").as(String.class),"%"+userTrip.getPos_end()+"%");
+                        predicateList.add(end);
+                    }
+                    Predicate date=criteriaBuilder.equal(root.get("t_date").as(Date.class),userTrip.getDate());
+                    predicateList.add(date);
+                    Predicate type=criteriaBuilder.equal(root.get("t_type").as(Integer.class),userTrip.getType());
+                    predicateList.add(type);
+                    Predicate noPre=criteriaBuilder.equal(root.get("t_no").as(String.class),userTrip.getNo());
+                    predicateList.add(noPre);
+                    Predicate[] preArray=new Predicate[predicateList.size()];
+                    predicateList.toArray(preArray);
+
+                    return criteriaBuilder.and(preArray);
+
+                }
+            });
+
+            if(patientTripList.size()>0){
+                all.removeAll(patientTripList);
+                all.addAll(patientTripList);
+                //修改UserTrip的风险
+                UserTrip oneById = userTripDao.findOneById(userTrip.getId());
+                oneById.setRisk(true);
+                userTripDao.save(oneById);
+            }
+        }
+
+        if(all.size()==0){
+            return ResponseResult.FAILED("无风险");
+        }
+        return ResponseResult.SUCCESS("以下行程存在风险").setData(all);
+    }
 }
