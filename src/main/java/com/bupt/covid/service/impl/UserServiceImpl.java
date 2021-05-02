@@ -10,11 +10,13 @@ import com.bupt.covid.utils.SnowFlakeIdWorker;
 import com.bupt.covid.utils.TextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -165,7 +167,7 @@ public class UserServiceImpl implements IUserService {
         if (code < 100000) {
             code += 100000;
         }
-        log.info("sendEmail code == > " + code);
+//        log.info("sendEmail code == > " + code);
         try {
             taskService.sendEmailVerifyCode(code + "", email);
         } catch (MessagingException e) {
@@ -181,5 +183,93 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    /**
+     * 获得用户信息列表，
+     * 包括 uerid=0，
+     * 按照userid降序排列
+     * @return
+     */
+    public List<User> getUserInfoList(){
+        return userDao.findAll(Sort.by(Sort.Direction.ASC, "userid"));
+    }
+
+    /**
+     * 获得用户信息列表，
+     * 不包括 uerid=0，
+     * 按照userid降序排列
+     * @return
+     */
+    public List<User> getUserInfoListNot0(){
+        return userDao.findAllByIdIsNotOrderById(0);
+    }
+
+
+    /**
+     * 更新一条记录
+     * @param user
+     * @return
+     */
+    public int updateOneUserInfo(User user){
+        User user_= userDao.findAllById(user.getId());
+        user_.setPhone(user.getPhone());
+        user_.setName(user.getName());
+        user_.setStatus(user.getStatus());
+        user_.setPassword(user.getPassword());
+        user_.setRealName(user.getRealName());
+        user_.setIDNumber(user.getIDNumber());
+        user_.setRole(user.getRole());
+        user_.setAuth(user.getAuth());
+        user_.setWifiRiskLevel(user.getWifiRiskLevel());
+        user_.setBluetoothRiskLevel(user.getBluetoothRiskLevel());
+        user_.setWifiInfectionRate(user.getWifiInfectionRate());
+        user_.setBluetoothInfectionRate(user.getBluetoothInfectionRate());
+
+        userDao.saveAndFlush(user_);
+
+        return 0;
+    }
+
+    /**
+     * 根据用户id查找对应的那一条用户信息
+     * @param id
+     * @return
+     */
+    public User findUserInfoByUserid(int id){
+        User user = userDao.findOneById(id);
+        return user;
+    }
+
+    /**
+     * 根据用户id查找对应的感染风险等级
+     * @param id
+     * @return
+     */
+    public int getRiskLevelByUserid(int id){
+        User user = userDao.findOneById(id);
+        return user.getBluetoothRiskLevel();
+
+    }
+
+    /**
+     * 获得用户信息列表
+     * 根据蓝牙感染风险等级降序排列
+     * @return
+     */
+    public List<User> getUserInfoListDesc(){
+        List<User> userList = userDao.findAllOrderByBluetoothRiskLevelDesc();
+        return userList;
+    }
+
+
+    /**
+     * 获得蓝牙感染风险等级高于riskLevel的用户信息列表
+     * @param bluetoothRiskLevel
+     * @return
+     */
+    public List<User> getUserInfoListByRiskLevel(int bluetoothRiskLevel){
+        List<User> userList = userDao.
+                findAllByBluetoothRiskLevelIsGreaterThanOrderByBluetoothRiskLevel(bluetoothRiskLevel);
+        return userList;
+    }
 
 }
