@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface UserTripDao extends JpaRepository<UserTrip,Integer>, JpaSpecificationExecutor<UserTrip> {
 
-    List<UserTrip> findAllByUserId(int userId);
+    List<UserTrip> findAllByUserIdOrderByDateDesc(int userId);
+    UserTrip findOneById(int id);
+
 }

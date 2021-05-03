@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -167,7 +166,9 @@ public class UserServiceImpl implements IUserService {
         if (code < 100000) {
             code += 100000;
         }
-//        log.info("sendEmail code == > " + code);
+
+        log.info("sendEmail code == > " + code);
+
         try {
             taskService.sendEmailVerifyCode(code + "", email);
         } catch (MessagingException e) {

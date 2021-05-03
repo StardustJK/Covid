@@ -25,7 +25,9 @@ public class StatusServiceImpl implements IStatusService {
 
     }
 
+
     public void insertOneStatus(Status status){
         statusDao.saveAndFlush(status);
     }
+
 }

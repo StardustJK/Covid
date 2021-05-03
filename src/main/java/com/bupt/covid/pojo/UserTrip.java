@@ -30,6 +30,17 @@ public class UserTrip {
     @Column(name = "pos_end")
     private String pos_end;
 
+    @Column(name = "risk")
+    private boolean risk;
+
+    public boolean isRisk() {
+        return risk;
+    }
+
+    public void setRisk(boolean risk) {
+        this.risk = risk;
+    }
+
     public int getId() {
         return id;
     }
