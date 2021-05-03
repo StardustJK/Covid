@@ -48,5 +48,10 @@ public class UserApi {
     }
 
 
+    @GetMapping("getBluetoothRiskLevel")
+    public ResponseResult getBluetoothRiskLevel(@RequestParam("userId") int userId){
+        return userService.getBluetoothRiskLevel(userId);
+    }
+
 
 }

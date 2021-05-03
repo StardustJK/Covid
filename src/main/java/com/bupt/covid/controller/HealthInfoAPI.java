@@ -5,6 +5,7 @@ import com.bupt.covid.service.HealthInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -46,7 +47,7 @@ public class HealthInfoAPI {
      * @return
      */
     @PostMapping("/api/ManagerWeb/updateOneHealthInfo")
-    public int updateOneHealthInfo(@RequestBody HealthInfo healthInfo){
+    public int updateOneHealthInfo(@RequestBody HealthInfo healthInfo) throws ParseException {
         int result = 0;
         result = healthInfoService.updateOneHealthInfo(healthInfo);
         return result;

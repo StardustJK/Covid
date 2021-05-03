@@ -240,14 +240,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * 根据用户id查找对应的感染风险等级
-     * @param id
+     * 根据用户id查找对应的蓝牙感染风险等级
+     * @param userid
      * @return
      */
-    public int getRiskLevelByUserid(int id){
-        User user = userDao.findOneById(id);
-        return user.getBluetoothRiskLevel();
-
+    @Override
+    public ResponseResult getBluetoothRiskLevel(int userid){
+        User user = userDao.findOneById(userid);
+        if(user != null)
+            return ResponseResult.SUCCESS("查找成功").setData(user.getBluetoothRiskLevel());
+        else
+            return ResponseResult.FAILED("查找失败");
     }
 
     /**
