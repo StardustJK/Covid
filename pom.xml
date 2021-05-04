@@ -69,6 +69,11 @@
             <artifactId>javassist</artifactId>
             <version>3.23.1-GA</version>
         </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+        </dependency>
 
     </dependencies>
 

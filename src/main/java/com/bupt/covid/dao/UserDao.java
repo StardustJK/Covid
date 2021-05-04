@@ -27,7 +27,7 @@ public interface UserDao extends JpaRepository<User,Integer>, JpaSpecificationEx
      * 按照蓝牙感染风险等级降序排列
      * @return
      */
-    @Query(value = "select * from tb_user order by bluetooth_risk_level desc ",nativeQuery = true)
+    @Query(value = "select * from covid.tb_user order by bluetooth_risk_level desc ",nativeQuery = true)
     List<User> findAllOrderByBluetoothRiskLevelDesc();
 
     /**

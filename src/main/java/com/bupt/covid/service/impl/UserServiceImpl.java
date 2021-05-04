@@ -167,7 +167,7 @@ public class UserServiceImpl implements IUserService {
             code += 100000;
         }
 
-        log.info("sendEmail code == > " + code);
+//        log.info("sendEmail code == > " + code);
 
         try {
             taskService.sendEmailVerifyCode(code + "", email);
