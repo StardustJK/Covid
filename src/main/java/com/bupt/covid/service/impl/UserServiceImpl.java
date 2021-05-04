@@ -53,9 +53,9 @@ public class UserServiceImpl implements IUserService {
         String phone = user.getPhone();
         String password = user.getPassword();
         User userFromDB = userDao.findOneByPhone(phone);
-        if (userFromDB == null) {
-            userFromDB = userDao.findOneByName(phone);
-        }
+//        if (userFromDB == null) {
+//            userFromDB = userDao.findOneByName(phone);
+//        }
         //用户不存在
         if (userFromDB == null) {
             return ResponseResult.FAILED("用户不存在");
@@ -127,7 +127,7 @@ public class UserServiceImpl implements IUserService {
 
         //补全数据
 
-        user.setName("未认证用户"+passwordEncode.substring(0,4));
+        user.setName("未认证用户");
 
         //存数据
         userDao.save(user);
