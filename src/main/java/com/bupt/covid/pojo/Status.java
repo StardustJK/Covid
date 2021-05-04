@@ -1,6 +1,8 @@
 package com.bupt.covid.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +17,7 @@ public class Status {
 
     @Column(name = "user_id")
     private int userId;
-
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @Column(name = "day")
     private Date day;
 
