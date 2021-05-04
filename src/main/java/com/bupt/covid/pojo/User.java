@@ -34,6 +34,18 @@ public class User {
     @Column(name = "auth")
     private boolean auth;
 
+    @Column(name = "wifi_risk_level")
+    private int wifiRiskLevel;
+
+    @Column(name = "bluetooth_risk_level")
+    private int bluetoothRiskLevel;
+
+    @Column(name = "wifi_infection_rate")
+    private float wifiInfectionRate;
+
+    @Column(name = "bluetooth_infection_rate")
+    private float bluetoothInfectionRate;
+
     public boolean getAuth() {
         return auth;
     }
@@ -105,4 +117,41 @@ public class User {
     public void setRole(int role) {
         this.role = role;
     }
+
+    public boolean isAuth() {
+        return auth;
+    }
+
+    public int getWifiRiskLevel() {
+        return wifiRiskLevel;
+    }
+
+    public void setWifiRiskLevel(int wifiRiskLevel) {
+        this.wifiRiskLevel = wifiRiskLevel;
+    }
+
+    public int getBluetoothRiskLevel() {
+        return bluetoothRiskLevel;
+    }
+
+    public void setBluetoothRiskLevel(int bluetoothRiskLevel) {
+        this.bluetoothRiskLevel = bluetoothRiskLevel;
+    }
+
+    public float getWifiInfectionRate() {
+        return wifiInfectionRate;
+    }
+
+    public void setWifiInfectionRate(float wifiInfectionRate) {
+        this.wifiInfectionRate = wifiInfectionRate;
+    }
+
+    public float getBluetoothInfectionRate() {
+        return bluetoothInfectionRate;
+    }
+
+    public void setBluetoothInfectionRate(float bluetoothInfectionRate) {
+        this.bluetoothInfectionRate = bluetoothInfectionRate;
+    }
+
 }

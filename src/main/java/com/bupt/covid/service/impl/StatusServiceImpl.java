@@ -24,4 +24,10 @@ public class StatusServiceImpl implements IStatusService {
         } else return ResponseResult.SUCCESS("成功获取该用户记录").setData(statusesFromDb);
 
     }
+
+
+    public void insertOneStatus(Status status){
+        statusDao.saveAndFlush(status);
+    }
+
 }

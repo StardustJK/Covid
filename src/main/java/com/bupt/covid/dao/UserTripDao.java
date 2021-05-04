@@ -11,4 +11,5 @@ public interface UserTripDao extends JpaRepository<UserTrip,Integer>, JpaSpecifi
 
     List<UserTrip> findAllByUserIdOrderByDateDesc(int userId);
     UserTrip findOneById(int id);
+
 }

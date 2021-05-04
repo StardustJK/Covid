@@ -47,6 +47,15 @@ public class UserApi {
         return userService.checkRegister(email);
     }
 
+    /**
+     * 获得指定用户的蓝牙感染风险等级
+     * @param userId
+     * @return
+     */
+    @GetMapping("getBluetoothRiskLevel")
+    public ResponseResult getBluetoothRiskLevel(@RequestParam("userId") int userId){
+        return userService.getBluetoothRiskLevel(userId);
+    }
 
 
 }

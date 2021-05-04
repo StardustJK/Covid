@@ -40,6 +40,7 @@ public class GetPatientTripTask {
         //筛选时间，只添加当天新增的
         List<PatientTrip> addList = null;
         Date today=new Date();
+
         log.info("today :  " + today);
         Calendar c=Calendar.getInstance();
         c.setTime(today);
@@ -48,9 +49,11 @@ public class GetPatientTripTask {
         addList = patientTrips.stream()
                 .filter((PatientTrip p) -> yesterday.before(p.getCreated_at()))
                 .collect(Collectors.toList());
+
         addList.forEach((PatientTrip p) -> log.info(""+p.getCreated_at()));
         patientTripDao.saveAll(addList);
         log.info(" insert data done");
+
     }
 
 }

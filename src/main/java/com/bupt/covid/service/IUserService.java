@@ -18,4 +18,6 @@ public interface IUserService {
 
     ResponseResult checkRegister(String email);
 
+    ResponseResult getBluetoothRiskLevel(int userId);
+
 }

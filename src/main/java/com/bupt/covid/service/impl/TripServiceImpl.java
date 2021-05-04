@@ -88,6 +88,7 @@ public class TripServiceImpl implements ITripService {
         return ResponseResult.SUCCESS("获取成功").setData(allByUserId);
     }
 
+
     @Override
     public ResponseResult tripRisk(List<UserTrip> userTrips) {
         List<PatientTrip> all=new ArrayList<>();
@@ -134,4 +135,5 @@ public class TripServiceImpl implements ITripService {
         }
         return ResponseResult.SUCCESS("以下行程存在风险").setData(all);
     }
+
 }

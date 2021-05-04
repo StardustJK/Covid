@@ -47,4 +47,5 @@ public class TripApi {
     ResponseResult tripRisk(@RequestBody List<UserTrip> userTrip){
         return tripService.tripRisk(userTrip);
     }
+
 }
