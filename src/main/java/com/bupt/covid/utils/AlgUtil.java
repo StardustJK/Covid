@@ -84,9 +84,6 @@ public class AlgUtil {
             //用来记录目标用户对主用户的每次接触计算出的感染概率
             List<Double> infectionProbList = new ArrayList<>();
 
-            //获得目标用户的感染概率
-            float targetInfectionRate = targetUserInfo.getBluetoothInfectionRate();
-
             //获得目标用户的14天内的每日跟踪秘钥
             List<SecretKeyInfo> SKInfoList = secretKeyInfoService.
                     getBluetoothInfoListByUserid(targetUserInfo.getId());
@@ -124,7 +121,7 @@ public class AlgUtil {
                             for(int n = 0; n < BTInfoArrayList[i].size(); n++){
                                 //若有匹配成功的记录，则
                                 if(BTInfoArrayList[i].get(n).getTarget_identifier().equals(rpijs[j])){
-                                    float T = (float) (BTInfoArrayList[i].get(n).getDuration()/ 60 / 60);
+                                    float T = ((float)BTInfoArrayList[i].get(n).getDuration())/ 60 / 60;
                                     float D = BTInfoArrayList[i].get(n).getDistance();
                                     double infectionProb = calculateOnceInfectionProb(T, D);
                                     infectionProbList.add(infectionProb);
@@ -135,7 +132,8 @@ public class AlgUtil {
                 }
             }
             //计算此目标用户对主用户的总感染概率，并存入List
-            double targetInfectionProb = calculateMulInfectionProb(infectionProbList) * targetUserInfo.getBluetoothInfectionRate();
+            double d = calculateMulInfectionProb(infectionProbList);
+            double targetInfectionProb = d * targetUserInfo.getBluetoothInfectionRate();
             targetInfectionProbList.add(targetInfectionProb);
         }
 
