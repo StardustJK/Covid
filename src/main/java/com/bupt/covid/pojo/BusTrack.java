@@ -3,17 +3,16 @@ package com.bupt.covid.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "tb_bus_track")
 public class BusTrack {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
 
     @Column(name = "user_id")
     private int userId;
@@ -31,11 +30,21 @@ public class BusTrack {
     @Column(name = "date_time")
     private Date dateTime;
 
-    public String getId() {
+    private String busId;
+
+    public String getBusId() {
+        return busId;
+    }
+
+    public void setBusId(String busId) {
+        this.busId = busId;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

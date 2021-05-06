@@ -98,13 +98,10 @@ public class TrackServiceImpl implements ITrackService {
         int result = 0;
         for (int i = 0; i < busTracks.size(); i++) {
             BusTrack busTrack = busTracks.get(i);
-            result = busTrackDao.addBusTrack(busTrack.getId(), busTrack.getUserId(), busTrack.getName(), busTrack.getStart(),
-                    busTrack.getEnd(), busTrack.getDateTime());
+            busTrackDao.save(busTrack);
+
         }
-        if (result != 0) {
-            return ResponseResult.SUCCESS("轨迹上传成功");
-        }
-        return ResponseResult.FAILED("轨迹上传失败");
+        return ResponseResult.FAILED("轨迹上传成功");
 
     }
 }

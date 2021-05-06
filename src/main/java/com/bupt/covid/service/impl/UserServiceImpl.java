@@ -59,7 +59,7 @@ public class UserServiceImpl implements IUserService {
 //        }
         //用户不存在
         if (userFromDB == null) {
-            return ResponseResult.FAILED("用户不存在");
+            return ResponseResult.FAILED("用f户不存在");
         }
 
         //用户存在，判断密码是否正确
