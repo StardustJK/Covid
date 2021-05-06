@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
-import sun.rmi.runtime.Log;
+//import sun.rmi.runtime.Log;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -41,7 +41,7 @@ public class GetPatientTripTask {
         List<PatientTrip> addList = null;
         Date today=new Date();
 
-        log.info("today :  " + today);
+//        log.info("today :  " + today);
         Calendar c=Calendar.getInstance();
         c.setTime(today);
         c.add(Calendar.DAY_OF_MONTH,-1);
@@ -50,9 +50,9 @@ public class GetPatientTripTask {
                 .filter((PatientTrip p) -> yesterday.before(p.getCreated_at()))
                 .collect(Collectors.toList());
 
-        addList.forEach((PatientTrip p) -> log.info(""+p.getCreated_at()));
+//        addList.forEach((PatientTrip p) -> log.info(""+p.getCreated_at()));
         patientTripDao.saveAll(addList);
-        log.info(" insert data done");
+//        log.info(" insert data done");
 
     }
 

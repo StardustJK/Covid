@@ -10,6 +10,7 @@ import com.bupt.covid.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,6 +42,16 @@ public class HealthInfoService {
         else if (auditStatus.equals("已审核"))
             healthInfoList = healthInfoDAO.findAllByAuditStatusIsNot("待审核");
         return healthInfoList;
+    }
+
+    /**
+     * 根据用户id获得用户的健康信息列表，
+     * 按提交时间排序
+     * @param userid
+     * @return
+     */
+    public List<HealthInfo> findAllByUserid(Integer userid){
+        return healthInfoDAO.findAllByUseridOrderBySubmitTime(userid);
     }
 
     /**
@@ -110,32 +121,6 @@ public class HealthInfoService {
 
         return 0;
     }
-//
-//    /**
-//     * 更新一条记录
-//     * @param id
-//     * @param userid
-//     * @param action
-//     * @param content
-//     * @param submitTime
-//     * @param auditStatus
-//     * @param auditTime
-//     * @return
-//     */
-//    public int updateOneHealthInfo(Integer id, Integer userid, String action,
-//                                   String content, String submitTime,
-//                                   String auditStatus, String auditTime){
-//        List<HealthInfo> healthInfoList = healthInfoDAO.findAllById(id);
-//        HealthInfo healthInfo_ = healthInfoList.get(0);
-//        healthInfo_.setUserid(userid);
-//        healthInfo_.setAction(action);
-//        healthInfo_.setContent(content);
-//        healthInfo_.setSubmitTime(submitTime);
-//        healthInfo_.setAuditStatus(auditStatus);
-//        healthInfo_.setAuditTime(auditTime);
-//        healthInfoDAO.saveAndFlush(healthInfo_);
-//
-//        return 0;
-//    }
+
 
 }

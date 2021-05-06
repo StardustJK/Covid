@@ -18,19 +18,30 @@ public class HealthInfoAPI {
      * @param healthStatus
      * @return
      */
-    @GetMapping("/api/ManagerWeb/findHealthInfoListByStatus")
+    @GetMapping("/api/healthInfo/findHealthInfoListByStatus")
     public List<HealthInfo> findHealthInfoListByStatus(
             @RequestParam("healthStatus") String healthStatus){
         return healthInfoService.findHealthInfoListByStatus(healthStatus);
     }
 
+    /**
+     * 根据用户id获得用户的健康信息列表，
+     * 按提交时间排序
+     * @param userid
+     * @return
+     */
+    @GetMapping("/api/healthInfo/findHealthInfoListByUserid")
+    public List<HealthInfo> findHealthInfoListByUserid(
+            @RequestParam("userid") Integer userid){
+        return healthInfoService.findAllByUserid(userid);
+    }
 
     /**
      * 插入一条用户健康信息
      * @param healthInfo
      * @return
      */
-    @PostMapping("/api/ManagerWeb/insertOneHealthInfo")
+    @PostMapping("/api/healthInfo/insertOneHealthInfo")
     public int insertOneHealthInfo(@RequestBody HealthInfo healthInfo){
         int result = 0;
         result = healthInfoService.insertOneHealthInfo(
@@ -46,7 +57,7 @@ public class HealthInfoAPI {
      * @param healthInfo
      * @return
      */
-    @PostMapping("/api/ManagerWeb/updateOneHealthInfo")
+    @PostMapping("/api/healthInfo/updateOneHealthInfo")
     public int updateOneHealthInfo(@RequestBody HealthInfo healthInfo) throws ParseException {
         int result = 0;
         result = healthInfoService.updateOneHealthInfo(healthInfo);

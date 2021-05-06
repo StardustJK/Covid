@@ -5,6 +5,7 @@ import com.bupt.covid.pojo.User;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.IStatusService;
 import com.bupt.covid.service.IUserService;
+import com.bupt.covid.utils.AlgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,9 @@ public class UserApi {
 
     @Autowired
     private IStatusService statusService;
+
+    @Autowired
+    private  AlgUtil algUtil;
 
     @PostMapping("login")
     public ResponseResult logIn(@RequestBody User user){
@@ -53,7 +57,8 @@ public class UserApi {
      * @return
      */
     @GetMapping("getBluetoothRiskLevel")
-    public ResponseResult getBluetoothRiskLevel(@RequestParam("userId") int userId){
+    public ResponseResult getBluetoothRiskLevel(@RequestParam("userId") int userId) throws Exception {
+        algUtil.updateAllInfectionRateAndRiskLevel();
         return userService.getBluetoothRiskLevel(userId);
     }
 

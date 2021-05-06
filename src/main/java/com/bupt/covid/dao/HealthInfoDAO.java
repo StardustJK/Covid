@@ -12,4 +12,6 @@ public interface HealthInfoDAO extends JpaRepository<HealthInfo, Integer> {
 
 //    @Query(value = "select * from user_info order by risk_level desc ",nativeQuery = true)
     List<HealthInfo> findAllByAuditStatusIsNot(String auditStatus);
+
+    List<HealthInfo> findAllByUseridOrderBySubmitTime(Integer userid);
 }
