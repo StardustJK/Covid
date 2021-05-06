@@ -1,6 +1,8 @@
 package com.bupt.covid.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,7 +27,7 @@ public class BusTrack {
 
     @Column(name = "end")
     private String end;
-
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "date_time")
     private Date dateTime;
 
