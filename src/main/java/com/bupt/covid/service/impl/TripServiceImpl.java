@@ -31,35 +31,35 @@ public class TripServiceImpl implements ITripService {
 
     @Override
     public ResponseResult searchTrip(String area, int type, String no, Date start, Date end) {
-        List<PatientTrip> all=patientTripDao.findAll(new Specification<PatientTrip>() {
+        List<PatientTrip> all = patientTripDao.findAll(new Specification<PatientTrip>() {
             @Override
             public Predicate toPredicate(Root<PatientTrip> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicateList=new ArrayList<>();
-                if(!TextUtils.isEmpty(area)){
-                    Predicate start= criteriaBuilder.like(root.get("t_pos_start").as(String.class),"%"+area+"%");
-                    Predicate end= criteriaBuilder.like(root.get("t_pos_end").as(String.class),"%"+area+"%");
-                    Predicate areaPre=criteriaBuilder.or(start,end);
+                List<Predicate> predicateList = new ArrayList<>();
+                if (!TextUtils.isEmpty(area)) {
+                    Predicate start = criteriaBuilder.like(root.get("t_pos_start").as(String.class), "%" + area + "%");
+                    Predicate end = criteriaBuilder.like(root.get("t_pos_end").as(String.class), "%" + area + "%");
+                    Predicate areaPre = criteriaBuilder.or(start, end);
                     predicateList.add(areaPre);
                 }
-                if(type!=0){
-                    Predicate typePre=criteriaBuilder.equal(root.get("t_type").as(Integer.class),type);
+                if (type != 0) {
+                    Predicate typePre = criteriaBuilder.equal(root.get("t_type").as(Integer.class), type);
                     predicateList.add(typePre);
                 }
-                if(!TextUtils.isEmpty(no)){
-                    Predicate noPre=criteriaBuilder.equal(root.get("t_no").as(String.class),no);
+                if (!TextUtils.isEmpty(no)) {
+                    Predicate noPre = criteriaBuilder.equal(root.get("t_no").as(String.class), no);
                     predicateList.add(noPre);
                 }
-                Predicate date=criteriaBuilder.between(root.get("t_date").as(Date.class),start,end);
+                Predicate date = criteriaBuilder.between(root.get("t_date").as(Date.class), start, end);
                 predicateList.add(date);
 
-                Predicate[] preArray=new Predicate[predicateList.size()];
+                Predicate[] preArray = new Predicate[predicateList.size()];
                 predicateList.toArray(preArray);
                 criteriaQuery.where(criteriaBuilder.and(preArray));
                 criteriaQuery.orderBy(criteriaBuilder.desc(root.get("t_date")));
                 return criteriaQuery.getRestriction();
             }
         });
-        if(all.size()==0){
+        if (all.size() == 0) {
             return ResponseResult.FAILED("查询结果为空");
         }
         return ResponseResult.SUCCESS("查询成功").setData(all);
@@ -67,10 +67,10 @@ public class TripServiceImpl implements ITripService {
 
     @Override
     public ResponseResult addTrip(UserTrip userTrip) {
-        if(userTrip.getDate().equals("")){
+        if (userTrip.getDate().equals("")) {
             return ResponseResult.FAILED("请填写日期");
         }
-        if(userTrip.getNo().equals("")){
+        if (userTrip.getNo().equals("")) {
             return ResponseResult.FAILED("请填写车次/航班");
         }
         userTripDao.save(userTrip);
@@ -82,7 +82,7 @@ public class TripServiceImpl implements ITripService {
     @Override
     public ResponseResult getTripByUser(int userId) {
         List<UserTrip> allByUserId = userTripDao.findAllByUserIdOrderByDateDesc(userId);
-        if(allByUserId.size()==0){
+        if (allByUserId.size() == 0) {
             return ResponseResult.FAILED("无出行记录");
         }
         return ResponseResult.SUCCESS("获取成功").setData(allByUserId);
@@ -91,28 +91,28 @@ public class TripServiceImpl implements ITripService {
 
     @Override
     public ResponseResult tripRisk(List<UserTrip> userTrips) {
-        List<PatientTrip> all=new ArrayList<>();
-        for(int i=0;i<userTrips.size();i++){
-            UserTrip userTrip=userTrips.get(i);
-            List<PatientTrip> patientTripList=patientTripDao.findAll(new Specification<PatientTrip>() {
+        List<PatientTrip> all = new ArrayList<>();
+        for (int i = 0; i < userTrips.size(); i++) {
+            UserTrip userTrip = userTrips.get(i);
+            List<PatientTrip> patientTripList = patientTripDao.findAll(new Specification<PatientTrip>() {
                 @Override
                 public Predicate toPredicate(Root<PatientTrip> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                    List<Predicate> predicateList=new ArrayList<>();
-                    if(!TextUtils.isEmpty(userTrip.getPos_start())){
-                        Predicate start= criteriaBuilder.like(root.get("t_pos_start").as(String.class),"%"+userTrip.getPos_start()+"%");
+                    List<Predicate> predicateList = new ArrayList<>();
+                    if (!TextUtils.isEmpty(userTrip.getPos_start())) {
+                        Predicate start = criteriaBuilder.like(root.get("t_pos_start").as(String.class), "%" + userTrip.getPos_start() + "%");
                         predicateList.add(start);
                     }
-                    if(!TextUtils.isEmpty(userTrip.getPos_end())){
-                        Predicate end= criteriaBuilder.like(root.get("t_pos_end").as(String.class),"%"+userTrip.getPos_end()+"%");
+                    if (!TextUtils.isEmpty(userTrip.getPos_end())) {
+                        Predicate end = criteriaBuilder.like(root.get("t_pos_end").as(String.class), "%" + userTrip.getPos_end() + "%");
                         predicateList.add(end);
                     }
-                    Predicate date=criteriaBuilder.equal(root.get("t_date").as(Date.class),userTrip.getDate());
+                    Predicate date = criteriaBuilder.equal(root.get("t_date").as(Date.class), userTrip.getDate());
                     predicateList.add(date);
-                    Predicate type=criteriaBuilder.equal(root.get("t_type").as(Integer.class),userTrip.getType());
+                    Predicate type = criteriaBuilder.equal(root.get("t_type").as(Integer.class), userTrip.getType());
                     predicateList.add(type);
-                    Predicate noPre=criteriaBuilder.equal(root.get("t_no").as(String.class),userTrip.getNo());
+                    Predicate noPre = criteriaBuilder.equal(root.get("t_no").as(String.class), userTrip.getNo());
                     predicateList.add(noPre);
-                    Predicate[] preArray=new Predicate[predicateList.size()];
+                    Predicate[] preArray = new Predicate[predicateList.size()];
                     predicateList.toArray(preArray);
 
                     return criteriaBuilder.and(preArray);
@@ -120,7 +120,7 @@ public class TripServiceImpl implements ITripService {
                 }
             });
 
-            if(patientTripList.size()>0){
+            if (patientTripList.size() > 0) {
                 all.removeAll(patientTripList);
                 all.addAll(patientTripList);
                 //修改UserTrip的风险
@@ -130,10 +130,21 @@ public class TripServiceImpl implements ITripService {
             }
         }
 
-        if(all.size()==0){
+        if (all.size() == 0) {
             return ResponseResult.FAILED("无风险");
         }
         return ResponseResult.SUCCESS("以下行程存在风险").setData(all);
+    }
+
+    @Override
+    public ResponseResult deleteTrip(int id) {
+        UserTrip oneById = userTripDao.findOneById(id);
+        if(oneById==null){
+            return ResponseResult.FAILED("该记录不存在");
+        }
+        userTripDao.deleteById(id);
+        return ResponseResult.SUCCESS("删除成功");
+
     }
 
 }
