@@ -6,6 +6,8 @@ import com.bupt.covid.pojo.PatientTrip;
 import com.bupt.covid.pojo.UserTrip;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.ITripService;
+import com.bupt.covid.utils.Constants;
+import com.bupt.covid.utils.RedisUtil;
 import com.bupt.covid.utils.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -28,6 +30,8 @@ public class TripServiceImpl implements ITripService {
     PatientTripDao patientTripDao;
     @Autowired
     UserTripDao userTripDao;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public ResponseResult searchTrip(String area, int type, String no, Date start, Date end) {
@@ -139,11 +143,36 @@ public class TripServiceImpl implements ITripService {
     @Override
     public ResponseResult deleteTrip(int id) {
         UserTrip oneById = userTripDao.findOneById(id);
-        if(oneById==null){
+        if (oneById == null) {
             return ResponseResult.FAILED("该记录不存在");
         }
         userTripDao.deleteById(id);
         return ResponseResult.SUCCESS("删除成功");
+
+    }
+
+    @Override
+    public ResponseResult riskNotify(int userId) {
+        //success是要通知
+        List<UserTrip> allByUserId = userTripDao.findAllByUserIdOrderByDateDesc(userId);
+        if (allByUserId.size() == 0) {
+            return ResponseResult.FAILED("无出行记录");
+        }
+        for (int i = 0; i < allByUserId.size(); i++) {
+            UserTrip userTrip = allByUserId.get(i);
+            if (userTrip.isRisk()) {
+                Object notified =  redisUtil.get(Constants.User.KEY_RISK_NOTIFY + userId);
+                if (notified==null) {
+                    //有效期24小时
+                    redisUtil.set(Constants.User.KEY_RISK_NOTIFY + userId, "true", 60 * 60 * 24);
+                    return ResponseResult.SUCCESS("用户有行程风险");
+                } else {
+                    return ResponseResult.FAILED("24小时内已通知过");
+                }
+            }
+        }
+        return ResponseResult.FAILED("用户无行程风险");
+
 
     }
 

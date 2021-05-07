@@ -52,4 +52,9 @@ public class TripApi {
         return tripService.deleteTrip(id);
     }
 
+    @GetMapping("riskNotify")
+    ResponseResult riskNotify(@RequestParam("user_id")int userId){
+        return tripService.riskNotify(userId);
+    }
+
 }
