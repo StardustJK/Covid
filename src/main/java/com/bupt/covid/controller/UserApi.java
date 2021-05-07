@@ -62,5 +62,10 @@ public class UserApi {
         return userService.getBluetoothRiskLevel(userId);
     }
 
+    @GetMapping("updateShowTripRisk")
+    public ResponseResult updateShowTripRisk(@RequestParam("user_id")int userId,@RequestParam("show")boolean show){
+        return userService.updateShowTripRisk(userId,show);
+    }
+
 
 }

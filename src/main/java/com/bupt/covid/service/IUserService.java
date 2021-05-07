@@ -20,4 +20,5 @@ public interface IUserService {
 
     ResponseResult getBluetoothRiskLevel(int userId);
 
+    ResponseResult updateShowTripRisk(int userId, boolean show);
 }

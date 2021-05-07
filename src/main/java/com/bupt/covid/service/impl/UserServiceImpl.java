@@ -254,6 +254,15 @@ public class UserServiceImpl implements IUserService {
             return ResponseResult.FAILED("查找失败");
     }
 
+    @Override
+    public ResponseResult updateShowTripRisk(int userId, boolean show) {
+        int result = userDao.updateShowTripRisk(show, userId);
+        if(result>0){
+            return ResponseResult.SUCCESS("修改成功");
+        }
+        return ResponseResult.SUCCESS("修改失败");
+    }
+
     /**
      * 获得用户信息列表
      * 根据蓝牙感染风险等级降序排列

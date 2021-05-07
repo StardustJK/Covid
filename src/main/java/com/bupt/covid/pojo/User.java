@@ -46,6 +46,17 @@ public class User {
     @Column(name = "bluetooth_infection_rate")
     private float bluetoothInfectionRate;
 
+    @Column(name = "show_trip_risk")
+    private boolean showTripRisk;
+
+    public boolean isShowTripRisk() {
+        return showTripRisk;
+    }
+
+    public void setShowTripRisk(boolean showTripRisk) {
+        this.showTripRisk = showTripRisk;
+    }
+
     public boolean getAuth() {
         return auth;
     }
