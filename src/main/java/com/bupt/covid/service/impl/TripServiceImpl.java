@@ -1,8 +1,10 @@
 package com.bupt.covid.service.impl;
 
 import com.bupt.covid.dao.PatientTripDao;
+import com.bupt.covid.dao.UserDao;
 import com.bupt.covid.dao.UserTripDao;
 import com.bupt.covid.pojo.PatientTrip;
+import com.bupt.covid.pojo.User;
 import com.bupt.covid.pojo.UserTrip;
 import com.bupt.covid.response.ResponseResult;
 import com.bupt.covid.service.ITripService;
@@ -32,6 +34,8 @@ public class TripServiceImpl implements ITripService {
     UserTripDao userTripDao;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public ResponseResult searchTrip(String area, int type, String no, Date start, Date end) {
@@ -158,10 +162,16 @@ public class TripServiceImpl implements ITripService {
         if (allByUserId.size() == 0) {
             return ResponseResult.FAILED("无出行记录");
         }
+        //查找用户设置
+        User oneById = userDao.findOneById(userId);
+        if(!oneById.isShowTripRisk()){
+            return ResponseResult.FAILED("用户设置不提示风险");
+        }
         for (int i = 0; i < allByUserId.size(); i++) {
             UserTrip userTrip = allByUserId.get(i);
             if (userTrip.isRisk()) {
                 Object notified =  redisUtil.get(Constants.User.KEY_RISK_NOTIFY + userId);
+
                 if (notified==null) {
                     //有效期24小时
                     redisUtil.set(Constants.User.KEY_RISK_NOTIFY + userId, "true", 60 * 60 * 24);

@@ -74,7 +74,7 @@ public class UserServiceImpl implements IUserService {
 
 
     /**
-     * 仅返回Id,phone,name,status,role信息
+     * 仅返回Id,phone,name,status,role,auth,showTripRisk信息
      *
      * @param user
      * @return
@@ -87,6 +87,8 @@ public class UserServiceImpl implements IUserService {
         returnedUser.setStatus(user.getStatus());
         returnedUser.setRole(user.getRole());
         returnedUser.setAuth(user.getAuth());
+        returnedUser.setShowTripRisk(user.isShowTripRisk());
+
         return returnedUser;
     }
 
