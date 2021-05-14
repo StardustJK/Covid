@@ -10,4 +10,5 @@ public interface ManagerInfoDAO extends JpaRepository<ManagerInfo, Integer> {
 
     List<ManagerInfo> findAllByUserName(String userName);
 
+
 }

@@ -20,6 +20,13 @@ public class ManagerInfoAPI {
 
     @Autowired
     UserServiceImpl userService;
+    @PostMapping("/api/ManagerWeb/signIn")
+    public ResultJson signIn(@RequestParam("userName") String userName,
+                             @RequestParam("password") String password,
+                             @RequestParam("role") String role){
+
+        return managerInfoService.signIn(userName, password,role);
+    }
 
     @PostMapping("/api/ManagerWeb/login")
     public ResultJson login(@RequestParam("userName") String userName,
