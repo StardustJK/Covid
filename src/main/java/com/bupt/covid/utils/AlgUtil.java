@@ -61,7 +61,6 @@ public class AlgUtil {
     public float calculateOneInfectionRate(User userInfo) throws Exception {
         int userid = userInfo.getId();
         int riskLevel = userInfo.getBluetoothRiskLevel();
-        int newRiskLevel = 0;
         float newInfectionRate = 0;
         String todayDateString = Utility.getDateString(0);
 
@@ -86,7 +85,7 @@ public class AlgUtil {
 
             //获得目标用户的14天内的每日跟踪秘钥
             List<SecretKeyInfo> SKInfoList = secretKeyInfoService.
-                    getBluetoothInfoListByUserid(targetUserInfo.getId());
+                    getSecretKeyInfoListByUserid(targetUserInfo.getId());
 
             //将每日跟踪秘钥列表按与今天相隔的天数，分为14组
             ArrayList<SecretKeyInfo>[] SKInfoArrayList = new ArrayList[14];

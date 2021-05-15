@@ -59,11 +59,11 @@ public class SecretKeyInfoService {
     }
 
     /**
-     * 获得14天内的，userid的蓝牙扫描信息列表
+     * 获得14天内的，userid的每日跟踪密钥列表
      * @param userid
      * @return
      */
-    public List<SecretKeyInfo> getBluetoothInfoListByUserid(Integer userid){
+    public List<SecretKeyInfo> getSecretKeyInfoListByUserid(Integer userid){
         // 获得14天前的日期的字符串
         String dateString14dAgo = Utility.getDateString(14);
         List<SecretKeyInfo> secretKeyInfo = secretKeyInfoDAO.getByUseridAndDate(userid, dateString14dAgo);
