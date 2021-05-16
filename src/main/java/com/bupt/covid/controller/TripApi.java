@@ -47,5 +47,14 @@ public class TripApi {
     ResponseResult tripRisk(@RequestBody List<UserTrip> userTrip){
         return tripService.tripRisk(userTrip);
     }
+    @GetMapping("delete")
+    ResponseResult deleteTrip(@RequestParam("id")int id){
+        return tripService.deleteTrip(id);
+    }
+
+    @GetMapping("riskNotify")
+    ResponseResult riskNotify(@RequestParam("user_id")int userId){
+        return tripService.riskNotify(userId);
+    }
 
 }

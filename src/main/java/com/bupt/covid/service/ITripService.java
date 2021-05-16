@@ -23,4 +23,7 @@ public interface ITripService {
 
     ResponseResult tripRisk(List<UserTrip> userTrip);
 
+    ResponseResult deleteTrip(int userId);
+
+    ResponseResult riskNotify(int userId);
 }

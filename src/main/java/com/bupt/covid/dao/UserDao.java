@@ -3,6 +3,7 @@ package com.bupt.covid.dao;
 import com.bupt.covid.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -12,6 +13,9 @@ public interface UserDao extends JpaRepository<User,Integer>, JpaSpecificationEx
     User findOneByPhone(String phone);
     User findOneByName(String name);
     User findOneById(int id);
+    @Modifying
+    @Query(nativeQuery = true,value = "update `tb_user` set `show_trip_risk`=?1 where `id`=?2")
+    int updateShowTripRisk(boolean show,int userId);
 
     /**
      * 获得用户信息列表，

@@ -59,7 +59,7 @@ public class UserServiceImpl implements IUserService {
 //        }
         //用户不存在
         if (userFromDB == null) {
-            return ResponseResult.FAILED("用户不存在");
+            return ResponseResult.FAILED("用f户不存在");
         }
 
         //用户存在，判断密码是否正确
@@ -74,7 +74,7 @@ public class UserServiceImpl implements IUserService {
 
 
     /**
-     * 仅返回Id,phone,name,status,role信息
+     * 仅返回Id,phone,name,status,role,auth,showTripRisk信息
      *
      * @param user
      * @return
@@ -87,6 +87,8 @@ public class UserServiceImpl implements IUserService {
         returnedUser.setStatus(user.getStatus());
         returnedUser.setRole(user.getRole());
         returnedUser.setAuth(user.getAuth());
+        returnedUser.setShowTripRisk(user.isShowTripRisk());
+
         return returnedUser;
     }
 
@@ -252,6 +254,15 @@ public class UserServiceImpl implements IUserService {
             return ResponseResult.SUCCESS("查找成功").setData(user.getBluetoothRiskLevel());
         else
             return ResponseResult.FAILED("查找失败");
+    }
+
+    @Override
+    public ResponseResult updateShowTripRisk(int userId, boolean show) {
+        int result = userDao.updateShowTripRisk(show, userId);
+        if(result>0){
+            return ResponseResult.SUCCESS("修改成功");
+        }
+        return ResponseResult.SUCCESS("修改失败");
     }
 
     /**
